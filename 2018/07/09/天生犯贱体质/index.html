@@ -23,7 +23,7 @@
 <meta property="og:site_name" content="Monika">
 <meta property="og:description" content="这是一篇私密文章，由于笔者还没有学会如何设置私密文章，只能这样暂时贴出来。恳请大家不要点开。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-10T15:27:14.469Z">
+<meta property="og:updated_time" content="2018-07-10T15:48:36.774Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="天生犯贱体质">
 <meta name="twitter:description" content="这是一篇私密文章，由于笔者还没有学会如何设置私密文章，只能这样暂时贴出来。恳请大家不要点开。">
@@ -76,6 +76,7 @@
         scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
         search: false
     }
+
 </script>
 
 
@@ -280,9 +281,46 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>这是一篇私密文章，由于笔者还没有学会如何设置私密文章，只能这样暂时贴出来。<br>恳请大家不要点开。</p>
-<a id="more"></a>
-
+        <script src=/js/crypto-js.js></script>
+<script>
+function doDecrypt (pwd, onError) {
+	console.log('in doDecrypt');
+	const txt = document.getElementById('enc_content').innerHTML;
+	let plantext;
+	try {
+		const bytes = CryptoJS.AES.decrypt(txt, pwd);
+		var plaintext = bytes.toString(CryptoJS.enc.Utf8);
+	} catch(err) {
+		if(onError) {
+			onError(err);
+		}
+		return;
+	}
+	document.getElementById('enc_content').innerHTML = plaintext;
+	document.getElementById('enc_content').style.display = 'block';
+	document.getElementById('enc_passwd').style.display = 'none';
+	if(typeof MathJax !== 'undefined') {
+		MathJax.Hub.Queue(
+			['resetEquationNumbers', MathJax.InputJax.TeX],
+			['PreProcess', MathJax.Hub],
+			['Reprocess', MathJax.Hub]
+		);
+	}
+}
+</script>
+<div id="enc_content" style="display:none">U2FsdGVkX1+o59ubZTv6d7pA679ISKKAC+AUMNPFtJ9z0nlnf3CdLi2ONtQsxglbwP8h2xvx+77hQayRXP7nsP3b5EsGItb0I0zRIM/m/rwqXMO45XBRPFyE5N70HUuiG71oWDnh0Rly9AfHzUkbszTgMI5lv+msLsdqzTVaMyz2m23/XGOjmcpDQcA5wPajsxWHUvMeoHG5CwbAnKaATYa8Cv7o3RDEn/K8JNjaRFAXUb90ddC/qJfMRV1HirJz</div>
+<div id="enc_passwd"> <input id="enc_pwd_input" type="password" style="border-radius: 5px;border-style: groove;height: 30px;width: 50%;cursor: auto;font-size: 102%;color: currentColor;outline: none;text-overflow: initial;padding-left: 5px;" onkeydown="if (event.keyCode == 13) { decrypt(); return false;}"> <input type="submit" value="解&nbsp;密" onclick="decrypt()" style="width: 58px;height: 34px;border-radius: 5px;background-color: white;border-style: solid;color: currentColor;"><div id="enc_error" style="display: inline-block;color: #d84527;margin-left: 10px"></div>
+<script>
+var onError = function(error) {
+	document.getElementById("enc_error").innerHTML = "password error!"
+};
+function decrypt() {
+var passwd = document.getElementById("enc_pwd_input").value;
+console.log(passwd);
+doDecrypt(passwd, onError);
+}
+</script>
+</div>
       
     </div>
     
@@ -293,7 +331,7 @@
         <p><span>本文标题:</span><a href="/2018/07/09/天生犯贱体质/">天生犯贱体质</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Monika</a></p>
         <p><span>发布时间:</span>2018-07-09, 10:00:00</p>
-        <p><span>最后更新:</span>2018-07-10, 23:27:14</p>
+        <p><span>最后更新:</span>2018-07-10, 23:48:36</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/07/09/天生犯贱体质/" title="天生犯贱体质">https://hellomonika.github.io/2018/07/09/天生犯贱体质/</a>
             <span class="copy-path" data-clipboard-text="原文: https://hellomonika.github.io/2018/07/09/天生犯贱体质/　　作者: Monika" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
